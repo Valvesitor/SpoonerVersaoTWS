@@ -1,0 +1,284 @@
+
+/* =========================================================
+   TWS PATCH V19 - Properties panel without scroll
+   Mantém o visual atual e ajusta somente o painel/rodapé/info.
+   ========================================================= */
+
+/* Câmera/Cursor no lado esquerdo */
+#cam-cursor-info {
+    top: 37.5% !important;
+    left: 0.9vw !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    width: 11.8vw !important;
+    min-width: 11.8vw !important;
+    max-width: 11.8vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.72vh !important;
+    z-index: 25 !important;
+}
+
+/* Informações abaixo do Cursor, no mesmo modelo visual */
+#info {
+    position: absolute !important;
+    left: 0.9vw !important;
+    top: 52.5% !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 11.8vw !important;
+    max-width: 11.8vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 0.48vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    text-align: left !important;
+    z-index: 24 !important;
+}
+
+#entity-info,
+#spawn-info,
+#focus-info,
+#place-on-ground-container,
+#info > div:not(#controls):not(#entity-info):not(#spawn-info):not(#focus-info):not(#place-on-ground-container) {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.42vh 0.62vw !important;
+    background: rgba(5, 7, 11, 0.72) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-left: 2px solid rgba(216, 184, 90, 0.88) !important;
+    border-radius: 0 10px 10px 0 !important;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.20) !important;
+    font-size: 1.02vh !important;
+    line-height: 1.25vh !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+#entity-info {
+    font-size: 1.08vh !important;
+    font-weight: 800 !important;
+}
+
+#info > div:not(#controls) span[style],
+#entity-type,
+#spawn-id,
+#model-name,
+#entity-net-id,
+#speed,
+#adjust-mode,
+#adjust-speed,
+#rotate-mode,
+#rotate-speed,
+#place-on-ground,
+#focus-target,
+#focus-mode {
+    color: rgba(245, 218, 142, 0.99) !important;
+    font-weight: 900 !important;
+}
+
+/* Rodapé menor, sem ficar muito largo */
+#controls {
+    position: fixed !important;
+    left: 50% !important;
+    bottom: 1.05vh !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    width: 72vw !important;
+    max-width: 72vw !important;
+    min-height: unset !important;
+    margin: 0 !important;
+    padding: 0.52vh 0.68vw !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    z-index: 30 !important;
+}
+
+#basic-controls[style*="display: none"],
+#entity-controls[style*="display: none"] {
+    display: none !important;
+}
+
+#basic-controls:not([style*="display: none"]),
+#entity-controls:not([style*="display: none"]) {
+    display: flex !important;
+}
+
+#basic-controls,
+#entity-controls {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    column-gap: 0.26vw !important;
+    row-gap: 0.30vh !important;
+}
+
+#controls .control-and-help {
+    flex: 0 0 auto !important;
+}
+
+/* =========================================================
+   Painel de propriedades SEM SCROLL
+   ========================================================= */
+
+#properties-menu {
+    top: 50% !important;
+    right: 0.7vw !important;
+    transform: translateY(-50%) !important;
+    width: 23.5vw !important;
+    min-width: 23.5vw !important;
+    max-width: 23.5vw !important;
+    height: 92vh !important;
+    min-height: 92vh !important;
+    max-height: 92vh !important;
+    display: none;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    padding: 0.55vh 0.65vw 0.55vh 0.65vw !important;
+}
+
+/* Remove o scroll interno e compacta tudo para caber no painel */
+#properties {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    padding: 0.25vh 0 !important;
+}
+
+/* Remove visual de scrollbar somente dentro do painel */
+#properties-menu::-webkit-scrollbar,
+#properties::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+}
+
+/* Cabeçalho menor */
+#properties-menu-entity {
+    padding: 0.35vh 0.45vw !important;
+    margin-bottom: 0.32vh !important;
+    min-height: 2.35vh !important;
+    font-size: 1.28vh !important;
+    line-height: 1.55vh !important;
+}
+
+/* Linhas/labels mais compactas */
+#properties-menu .property {
+    padding: 0.18vh 0 !important;
+    margin: 0 !important;
+}
+
+#properties-menu .label {
+    font-size: 1.18vh !important;
+    line-height: 1.35vh !important;
+    margin-bottom: 0.12vh !important;
+}
+
+#properties-menu .value {
+    font-size: 1.18vh !important;
+    line-height: 1.35vh !important;
+}
+
+/* Botões compactos */
+#properties-menu button {
+    min-height: 2.28vh !important;
+    height: 2.28vh !important;
+    padding: 0.12vh 0.32vw !important;
+    font-size: 1.18vh !important;
+    line-height: 1.25vh !important;
+    border-radius: 8px !important;
+}
+
+/* Inputs compactos */
+#properties-menu input,
+#properties-menu select {
+    min-height: 2.28vh !important;
+    height: 2.28vh !important;
+    padding: 0.10vh 0.32vw !important;
+    font-size: 1.18vh !important;
+    line-height: 1.25vh !important;
+    border-radius: 8px !important;
+}
+
+/* Grupos X/Y/Z e rotação cabem melhor em linha */
+#properties-menu .labelled-input-group {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto !important;
+    gap: 0.28vh 0.30vw !important;
+    align-items: end !important;
+}
+
+#properties-menu .labelled-input {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.10vh !important;
+    min-width: 0 !important;
+}
+
+#properties-menu .labelled-input .input-label {
+    display: block !important;
+    font-size: 0.94vh !important;
+    line-height: 1.0vh !important;
+    opacity: 0.82 !important;
+    text-transform: uppercase !important;
+}
+
+#properties-menu .labelled-input input {
+    width: 100% !important;
+}
+
+#properties-menu .copy-button {
+    grid-column: auto !important;
+    width: 2.25vw !important;
+    min-width: 2.25vw !important;
+    height: 2.28vh !important;
+}
+
+/* Blocos com dois botões lado a lado mais baixos */
+#properties-menu .property.multiple {
+    display: flex !important;
+    gap: 0.45vw !important;
+}
+
+#properties-menu .property.multiple button {
+    flex: 1 1 0 !important;
+}
+
+/* Botão fechar sempre visível, sem depender de scroll */
+#properties-menu-close-btn {
+    flex: 0 0 auto !important;
+    position: static !important;
+    width: 100% !important;
+    margin-top: 0.35vh !important;
+    height: 2.55vh !important;
+    min-height: 2.55vh !important;
+}
+
+/* Esconde menos importante quando necessário para caber melhor no painel */
+#properties-register-as-networked,
+#properties-request-control {
+    min-height: 2.15vh !important;
+    height: 2.15vh !important;
+}
+
+/* Responsivo */
+@media (max-width: 1600px) {
+    #controls {
+        width: 78vw !important;
+        max-width: 78vw !important;
+    }
+
+    #properties-menu {
+        width: 25vw !important;
+        min-width: 25vw !important;
+        max-width: 25vw !important;
+    }
+}

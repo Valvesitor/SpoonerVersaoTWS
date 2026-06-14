@@ -1,0 +1,1859 @@
+@font-face {
+	font-family: "212 Keyboard";
+	src: url("./fonts/keyboard.ttf");
+}
+
+* {
+	font-size: inherit;
+	font-family: inherit;
+	user-select: none;
+	color: inherit;
+}
+
+::selection {
+	background-color: #d00;
+}
+
+html,
+body {
+	background: none;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow: auto;
+	font-family: Helvetica;
+}
+
+button {
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: solid 1px white;
+	font-size: 2vh;
+	border-radius: 10px;
+}
+
+#copy-position,
+#copy-rotation,
+#properties-adjust-speed,
+#properties-rotate-speed,
+#ped-spawn-by-name,
+#vehicle-spawn-by-name,
+#object-spawn-by-name,
+#animation-stop,
+#propset-spawn-by-name,
+#pickup-spawn-by-name,
+#spooni-spawn-by-name,
+#player-model-spawn-by-name,
+#scenario-stop,
+#attachment-adjust-speed,
+#attachment-rotate-speed,
+#import-export-db-btn,
+#yes-delete-db,
+#properties-lights-red,
+#add-to-db-btn {
+	border-radius: 10px 10px 0 0;
+}
+
+#export-db {
+	border-radius: 0 10px 0 0;
+}
+
+#import-export-db-close,
+#ped-menu-close-btn,
+#vehicle-menu-close-btn,
+#object-menu-close-btn,
+#propset-menu-close-btn,
+#pickup-menu-close-btn,
+#spooni-menu-close-btn,
+#animation-menu-close,
+#save-load-db-menu-close-btn,
+#object-database-close-btn,
+#scenario-menu-close,
+#copy-attachment-position,
+#player-model-menu-close-btn,
+#no-delete-db,
+#properties-lights-blue,
+#copy-attachment-rotation {
+	border-radius: 0 0 10px 10px;
+}
+
+#import-db,
+#properties-x,
+#properties-y,
+#properties-z,
+#properties-pitch,
+#properties-roll,
+#properties-yaw,
+#attachment-x,
+#attachment-y,
+#attachment-z,
+#attachment-pitch,
+#attachment-roll,
+#attachment-yaw,
+#properties-lights-green,
+#object-database-delete-all-btn {
+	border-radius: 0;
+}
+
+#properties-adjust-speed,
+#properties-rotate-speed {
+	border-radius: 10px 10px 0 0;
+}
+
+#copy-position,
+#copy-rotation {
+	border-radius: 0 0 10px 10px;
+}
+
+#favourite-peds,
+#favourite-scenarios,
+#favourite-vehicles,
+#favourite-animations,
+#favourite-objects,
+#favourite-propsets,
+#favourite-player-models,
+#favourite-pickups,
+#favourite-spooni,
+#favourite-weapons,
+#favourite-walk-styles,
+#copy-model-name {
+	border: solid 1px black;
+}
+
+button:hover:enabled,
+button:focus:enabled {
+	background-color: rgba(255, 0, 0, 0.5);
+}
+
+button:active:enabled {
+	background-color: white;
+	color: black;
+}
+
+button:disabled {
+	color: #444;
+	border: solid 1px #444;
+}
+
+input {
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: solid 1px white;
+	border-radius: 10px;
+}
+
+input[type="checkbox"] {
+	-webkit-appearance: none;
+	background: rgba(0, 0, 0, 0.5);
+	height: 1vw;
+	width: 1vw;
+	border: 1px solid white;
+	vertical-align: middle;
+	border-radius: 5px;
+}
+
+input[type="checkbox"]:checked {
+	background: rgba(255, 0, 0, 0.75);
+}
+
+input:disabled {
+	color: #444;
+	border: solid 1px #444;
+}
+
+#hud {
+	display: none;
+	font-size: 1.5vh;
+}
+
+#info {
+	text-align: center;
+}
+
+#crosshair {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 3.5vh;
+	color: white;
+	font-family: Times;
+}
+
+#crosshair.inactive {
+	color: white;
+}
+
+#crosshair.active {
+	color: #0f0;
+}
+
+#crosshair.attached {
+	color: #0ff;
+}
+
+#info {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	color: white;
+}
+
+#controls {
+	display: flex;
+	justify-content: center;
+	font-size: 1.25vh;
+	padding: 0.25vh 0.25vw;
+	margin-top: 1vh;
+	background-color: rgba(0, 0, 0, 0.75);
+	border-radius: 10px 10px 0 0;
+}
+
+.control-set,
+.control-and-help {
+	display: flex;
+	align-items: center;
+}
+
+.control-and-help {
+	padding: 0 0.25vw;
+}
+
+.control-help {
+	padding-left: 0.25vw;
+}
+
+#cam-cursor-info {
+	position: absolute;
+	top: 50%;
+	left: 1%;
+	transform: translate(0, -50%);
+	color: white;
+}
+
+#cursor-info {
+	margin-top: 1vh;
+}
+
+.menu {
+	display: none;
+	position: absolute;
+	top: 48%;
+	right: 1%;
+	height: 93%;
+	transform: translate(0, -50%);
+	background-color: rgba(0, 0, 0, 0.75);
+	color: white;
+	font-size: 1.9vh;
+	padding: 0.5vh 0.5vw;
+	flex-flow: column;
+	min-width: 10%;
+	overflow: auto;
+	border-radius: 10px;
+}
+
+#spawn-categories {
+	padding: 1vh 0;
+	display: flex;
+	flex-flow: column;
+	flex-grow: 1;
+}
+
+.spawn-category {
+	padding: 0.25vh 0;
+}
+
+.spawn-category button {
+	width: 100%;
+}
+
+.search {
+	display: flex;
+}
+
+.search-filter {
+	flex-grow: 1;
+	border: solid 1px white;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border-radius: 10px;
+}
+
+.list {
+	flex-grow: 1;
+	overflow: auto;
+	padding: 0.5vh 0.25vw 0.5vh 0;
+}
+
+::-webkit-scrollbar {
+	background: black;
+	border-radius: 10px;
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: white;
+	border-radius: 10px;
+}
+
+.object {
+	padding: 0.25vh 0.25vw;
+}
+
+.object:hover {
+	background-color: white;
+	color: black;
+	border-radius: 10px;
+}
+
+.object.selected {
+	background-color: white;
+	color: black;
+}
+
+.object.favourite {
+	background-color: rgba(255, 215, 0, 0.5);
+}
+
+.object-name,
+.object-favourite {
+}
+
+.self {
+	background-color: rgba(0, 0, 255, 0.3);
+}
+
+.invalid {
+	background-color: rgba(255, 0, 0, 0.3);
+}
+
+#properties-menu .label,
+#properties-menu .value {
+	display: inline;
+}
+
+#properties-menu .label::after {
+	content: ": ";
+}
+
+#properties-model-container {
+	display: flex;
+	gap: 0.5em;
+}
+
+.property {
+	padding: 0.5vh 0;
+}
+
+.property.multiple {
+	display: flex;
+	gap: 2%;
+}
+
+.property label {
+	display: block;
+}
+
+.property button {
+	display: block;
+	width: 100%;
+	white-space: nowrap;
+}
+
+.property input {
+	display: block;
+	width: 100%;
+	border-radius: 10px;
+}
+
+.add-remove-db {
+	display: none;
+}
+
+#load-db-options,
+#save-db-options {
+	padding: 1vh 0;
+}
+
+#save-db-options {
+	display: flex;
+}
+
+#save-db-name {
+	flex-grow: 1;
+	border-radius: 5px 0 0 5px;
+}
+
+#save-db-btn {
+	border-radius: 0 5px 5px 0;
+}
+
+.database {
+	padding: 0.25vh 0.25vw;
+}
+
+.database:hover {
+	background-color: white;
+	color: black;
+	border-radius: 10px;
+}
+
+#help-menu {
+	display: none;
+	flex-flow: column;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: rgba(0, 0, 0, 0.75);
+	color: white;
+	padding: 1vh 1vw;
+	font-size: 1.5vh;
+	max-height: 95%;
+	border-radius: 10px;
+}
+
+#help-content {
+	flex-grow: 1;
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	padding: 0 0.5vw;
+}
+
+td {
+	text-align: left;
+	vertical-align: middle;
+	padding: 0.5vh 0.5vw;
+}
+
+#help-menu-controls {
+	padding: 0.5vh 0;
+}
+
+#help-menu-close-btn {
+	width: 100%;
+	font-size: 2vh;
+}
+
+h1 {
+	font-size: 3vh;
+	color: #b00;
+	font-weight: normal;
+}
+
+h2 {
+	font-size: 2.5vh;
+	font-weight: normal;
+}
+
+h3 {
+	font-size: 2vh;
+	font-weight: normal;
+}
+
+strong {
+	color: #b00;
+}
+
+.control {
+	font-family: "212 Keyboard";
+	font-size: 4vh;
+}
+
+#import-export-db {
+	display: none;
+	flex-flow: column;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50%;
+	height: 50%;
+	color: white;
+	border-radius: 10px;
+}
+
+#import-export-controls {
+	display: flex;
+	width: 100%;
+}
+
+select {
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: solid 1px white;
+	border-radius: 5px 0 0 0;
+}
+
+#attachment-bone-name {
+	border-radius: 10px;
+}
+
+option {
+	background-color: #000;
+}
+
+#import-url {
+	flex-grow: 1;
+	border-radius: 0px;
+}
+
+textarea {
+	width: 100%;
+	flex-grow: 1;
+	background: rgba(0, 0, 0, 0.75);
+	color: white;
+	resize: none;
+}
+
+.attachment-option {
+	padding: 0.5vh 0;
+}
+
+#attachment-bone-container {
+	display: flex;
+	gap: 10px;
+}
+
+.labelled-input-group {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-gap: 0 0.5vw;
+}
+
+.labelled-input {
+	display: contents;
+}
+
+.labelled-input .input-label {
+	display: flex;
+	font-size: 1.25vh;
+	align-items: center;
+}
+
+.copy-button {
+	grid-column: 2;
+}
+
+#object-database-stats {
+	font-size: 1.25vh;
+	border-bottom: 1px solid white;
+}
+
+.object-database-stat {
+	display: inline-block;
+}
+
+.arrow-keys {
+	display: inline-grid;
+	grid-template-columns: repeat(3, max-content);
+	font-family: "212 Keyboard";
+}
+
+.arrow-keys div:first-child {
+	grid-column: 1 / 4;
+}
+
+#config-flags-list {
+	display: grid;
+	grid-template-columns: max-content auto max-content;
+	grid-gap: 0.5vh 0.5vw;
+	text-align: right;
+}
+
+.add-config-flag-container {
+	display: flex;
+}
+
+.config-flag {
+	display: contents;
+}
+
+.config-flag.off {
+	color: #555;
+}
+
+#config-flag-label {
+	padding-right: 0.25vw;
+}
+
+.config-flag-set button {
+	border: none;
+}
+
+#config-flag {
+	flex-grow: 1;
+}
+
+#add-to-db-options {
+	flex-grow: 1;
+}
+
+#delete-db-prompt {
+	display: none;
+	flex-flow: column;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 15%;
+	color: white;
+}
+
+#offset-db-prompt {
+	display: none;
+	flex-flow: column;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 15%;
+	color: white;
+}
+
+/* =========================================================
+   TWS Elegant UI v8 - premium visual overhaul
+   Applied over the original Spooner CSS.
+   ========================================================= */
+:root {
+	--tws-bg: rgba(6, 8, 12, 0.82);
+	--tws-bg-soft: rgba(8, 10, 16, 0.62);
+	--tws-bg-card: rgba(10, 12, 18, 0.78);
+	--tws-border: rgba(255, 255, 255, 0.13);
+	--tws-border-strong: rgba(255, 255, 255, 0.24);
+	--tws-gold: #d8b85a;
+	--tws-gold-soft: rgba(216, 184, 90, 0.26);
+	--tws-blue: #67c8ff;
+	--tws-green: #74d990;
+	--tws-red: #e05a5a;
+	--tws-purple: #c9a7ff;
+	--tws-pink: #ff95bd;
+	--tws-text: rgba(255, 255, 255, 0.94);
+	--tws-muted: rgba(255, 255, 255, 0.66);
+	--tws-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
+}
+
+html,
+body {
+	background: transparent !important;
+	overflow: hidden !important;
+	font-family: Helvetica, Arial, sans-serif !important;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+::selection {
+	background: rgba(216, 184, 90, 0.35) !important;
+	color: #fff !important;
+}
+
+/* -------- Base controls -------- */
+button,
+input,
+select,
+textarea {
+	outline: none !important;
+	font-family: Helvetica, Arial, sans-serif !important;
+}
+
+button {
+	min-height: 2.65vh;
+	padding: 0.36vh 0.72vw;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)) !important;
+	color: var(--tws-text) !important;
+	border: 1px solid var(--tws-border) !important;
+	border-radius: 9px !important;
+	font-size: 1.22vh !important;
+	font-weight: 800 !important;
+	letter-spacing: 0.035em;
+	text-transform: uppercase;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+	transition: background 140ms ease, border-color 140ms ease, transform 140ms ease, color 140ms ease;
+}
+
+button:hover:enabled,
+button:focus:enabled {
+	background: linear-gradient(180deg, rgba(216, 184, 90, 0.26), rgba(216, 184, 90, 0.08)) !important;
+	border-color: rgba(216, 184, 90, 0.56) !important;
+	color: #fff !important;
+	transform: translateY(-1px);
+}
+
+button:active:enabled {
+	background: rgba(216, 184, 90, 0.34) !important;
+	color: #fff !important;
+	transform: translateY(0);
+}
+
+button:disabled {
+	background: rgba(255, 255, 255, 0.025) !important;
+	color: rgba(255, 255, 255, 0.25) !important;
+	border-color: rgba(255, 255, 255, 0.08) !important;
+	transform: none !important;
+}
+
+input,
+select,
+textarea {
+	background: rgba(0, 0, 0, 0.42) !important;
+	color: var(--tws-text) !important;
+	border: 1px solid rgba(255, 255, 255, 0.15) !important;
+	border-radius: 9px !important;
+	font-size: 1.32vh !important;
+	font-weight: 650;
+	padding: 0.42vh 0.55vw;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	border-color: rgba(216, 184, 90, 0.64) !important;
+	box-shadow: 0 0 0 2px rgba(216, 184, 90, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+input[type="checkbox"] {
+	width: 1.05vw !important;
+	height: 1.05vw !important;
+	min-width: 1.05vw;
+	padding: 0 !important;
+	border-radius: 5px !important;
+}
+
+input[type="checkbox"]:checked {
+	background: linear-gradient(180deg, rgba(216, 184, 90, 0.9), rgba(150, 102, 24, 0.9)) !important;
+	border-color: rgba(255, 236, 169, 0.7) !important;
+}
+
+/* -------- Universal menus -------- */
+.menu {
+	display: none;
+	position: absolute !important;
+	top: 50% !important;
+	right: 1.1vw !important;
+	transform: translateY(-50%) !important;
+	width: 28vw;
+	min-width: 310px;
+	max-width: 530px;
+	height: auto !important;
+	max-height: 88vh !important;
+	padding: 0.72vh 0.62vw !important;
+	flex-flow: column !important;
+	gap: 0.52vh;
+	overflow: hidden !important;
+	background: linear-gradient(180deg, rgba(7, 9, 15, 0.88), rgba(7, 9, 15, 0.74)) !important;
+	color: var(--tws-text) !important;
+	border: 1px solid var(--tws-border) !important;
+	border-top-color: rgba(255, 255, 255, 0.22) !important;
+	border-radius: 16px !important;
+	box-shadow: var(--tws-shadow) !important;
+	font-size: 1.34vh !important;
+	line-height: 1.5vh;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.88);
+}
+
+.menu::before {
+	content: "";
+	display: block;
+	height: 2px;
+	width: 100%;
+	margin: 0 0 0.32vh 0;
+	border-radius: 99px;
+	background: linear-gradient(90deg, rgba(216, 184, 90, 0.9), rgba(103, 200, 255, 0.4), transparent);
+	pointer-events: none;
+}
+
+.search {
+	display: flex !important;
+	gap: 0.45vw;
+	align-items: center;
+	padding: 0.15vh 0 0.52vh;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.search-filter {
+	flex: 1 1 auto;
+	height: 3vh;
+	border-radius: 10px !important;
+}
+
+.favourites,
+#copy-model-name,
+.copy-button {
+	min-width: 2.8vh !important;
+	width: 2.8vh !important;
+	height: 2.8vh !important;
+	padding: 0 !important;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px !important;
+}
+
+.favourites img,
+.copy-button img,
+#copy-model-name img {
+	width: 1.55vh !important;
+	height: 1.55vh !important;
+	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
+}
+
+.list {
+	flex: 1 1 auto !important;
+	min-height: 8vh;
+	max-height: 66vh;
+	overflow: auto !important;
+	padding: 0.38vh 0.18vw 0.38vh 0 !important;
+	margin: 0.1vh 0;
+}
+
+::-webkit-scrollbar {
+	width: 7px !important;
+	height: 7px !important;
+	background: rgba(255, 255, 255, 0.045) !important;
+	border-radius: 999px !important;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(180deg, rgba(216, 184, 90, 0.75), rgba(103, 200, 255, 0.55)) !important;
+	border-radius: 999px !important;
+}
+
+/* -------- List entries / colored words -------- */
+.object,
+.database {
+	position: relative;
+	padding: 0.48vh 0.55vw !important;
+	margin: 0.16vh 0 !important;
+	min-height: 2.55vh;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-radius: 9px !important;
+	background: rgba(255, 255, 255, 0.035) !important;
+	border: 1px solid rgba(255, 255, 255, 0.065);
+	border-left: 2px solid rgba(255, 255, 255, 0.08);
+	color: rgba(255, 255, 255, 0.88) !important;
+	font-size: 1.2vh;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	transition: background 130ms ease, border-color 130ms ease, transform 130ms ease;
+}
+
+.object:hover,
+.database:hover {
+	background: rgba(216, 184, 90, 0.15) !important;
+	border-color: rgba(216, 184, 90, 0.32);
+	border-left-color: var(--tws-gold) !important;
+	color: #fff !important;
+	transform: translateX(-2px);
+}
+
+.object.selected,
+.database.selected {
+	background: linear-gradient(90deg, rgba(216, 184, 90, 0.36), rgba(255, 255, 255, 0.07)) !important;
+	border-color: rgba(216, 184, 90, 0.55) !important;
+	border-left-color: var(--tws-gold) !important;
+	color: #fff !important;
+}
+
+.object.favourite {
+	background: rgba(216, 184, 90, 0.15) !important;
+	border-left-color: var(--tws-gold) !important;
+}
+
+.object.self {
+	background: rgba(103, 200, 255, 0.13) !important;
+	border-left-color: var(--tws-blue) !important;
+}
+
+.object.invalid {
+	background: rgba(224, 90, 90, 0.14) !important;
+	border-left-color: var(--tws-red) !important;
+}
+
+.tws-word-a { color: var(--tws-blue) !important; }
+.tws-word-b { color: var(--tws-gold) !important; }
+.tws-word-c { color: var(--tws-green) !important; }
+.tws-word-d { color: var(--tws-pink) !important; }
+.tws-word-e { color: var(--tws-purple) !important; }
+.tws-separator { color: rgba(255, 255, 255, 0.46) !important; }
+.tws-colon { color: var(--tws-gold) !important; font-weight: 900; }
+
+/* -------- Spawn categories -------- */
+#spawn-menu {
+	width: 19vw !important;
+	min-width: 270px !important;
+}
+
+#spawn-categories {
+	padding: 0.4vh 0 !important;
+	gap: 0.34vh;
+}
+
+.spawn-category {
+	padding: 0 !important;
+}
+
+.spawn-category button {
+	width: 100%;
+	justify-content: center;
+}
+
+/* -------- Database -------- */
+#object-database {
+	width: 31vw !important;
+	max-width: 620px !important;
+}
+
+#object-database-stats {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.32vh 0.32vw;
+	padding: 0.48vh 0;
+}
+
+.object-database-stat {
+	padding: 0.38vh 0.36vw;
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: 9px;
+	font-size: 1.08vh;
+	font-weight: 800;
+	color: rgba(255, 255, 255, 0.75);
+}
+
+.object-database-stat span {
+	color: var(--tws-gold);
+}
+
+/* -------- Properties menu -------- */
+#properties-menu,
+#ped-options-menu,
+#attachment-options-menu,
+#vehicle-options-menu,
+#lights-options-menu,
+#config-flags-menu {
+	width: 23.5vw !important;
+	min-width: 330px !important;
+	max-width: 460px !important;
+}
+
+#properties-menu-entity {
+	padding: 0.6vh 0.55vw;
+	margin-bottom: 0.45vh;
+	background: rgba(255, 255, 255, 0.045);
+	border: 1px solid rgba(255, 255, 255, 0.09);
+	border-radius: 11px;
+}
+
+#properties-menu .label,
+#properties-menu .value {
+	display: inline;
+}
+
+#properties-menu .label,
+.property .label {
+	color: rgba(255, 255, 255, 0.82);
+	font-weight: 850;
+}
+
+#properties-menu .value {
+	color: var(--tws-gold);
+	font-weight: 900;
+}
+
+#properties,
+#ped-options,
+#vehicle-options,
+#lights-options {
+	padding-right: 0.18vw !important;
+}
+
+.property {
+	padding: 0.48vh 0 !important;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.property:last-child {
+	border-bottom: 0;
+}
+
+.property.multiple {
+	display: grid !important;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.42vw !important;
+}
+
+.property button {
+	width: 100% !important;
+}
+
+.labelled-input-group {
+	display: grid !important;
+	grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+	gap: 0.34vw;
+	align-items: end;
+}
+
+.labelled-input {
+	min-width: 0;
+}
+
+.input-label {
+	margin-bottom: 0.18vh;
+	color: rgba(255, 255, 255, 0.58);
+	font-size: 0.98vh;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.property input {
+	width: 100% !important;
+	min-height: 2.6vh;
+}
+
+#properties-model-container {
+	display: grid !important;
+	grid-template-columns: auto 1fr auto;
+	gap: 0.42vw !important;
+	align-items: center;
+}
+
+/* -------- Animation panel: smaller and readable -------- */
+#animation-menu {
+	width: 42vw !important;
+	min-width: 520px !important;
+	max-width: 760px !important;
+	height: auto !important;
+	max-height: 88vh !important;
+}
+
+#animation-list {
+	max-height: 46vh !important;
+	min-height: 22vh;
+}
+
+#animation-settings {
+	display: grid !important;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.35vh 0.52vw;
+	padding: 0.48vh 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#animation-settings .property {
+	padding: 0 !important;
+	border-bottom: 0 !important;
+}
+
+#animation-settings .label {
+	margin-bottom: 0.18vh;
+	font-size: 1.02vh;
+	color: rgba(255, 255, 255, 0.68);
+}
+
+#animation-settings input {
+	height: 2.55vh;
+}
+
+#animation-stop,
+#animation-menu-close {
+	width: 100%;
+}
+
+/* -------- Help/import/export modals -------- */
+#help-menu,
+#import-export-db,
+#delete-db-prompt,
+#offset-db-prompt {
+	background: linear-gradient(180deg, rgba(7, 9, 15, 0.90), rgba(7, 9, 15, 0.78)) !important;
+	color: var(--tws-text) !important;
+	border: 1px solid var(--tws-border) !important;
+	border-radius: 16px !important;
+	box-shadow: var(--tws-shadow) !important;
+}
+
+#help-menu {
+	width: 58vw;
+	max-height: 88vh !important;
+}
+
+h1,
+h2,
+h3,
+strong {
+	color: var(--tws-gold) !important;
+}
+
+/* -------- HUD -------- */
+#hud {
+	display: none;
+	font-size: 1.25vh !important;
+}
+
+#crosshair {
+	position: absolute !important;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	font-family: Georgia, "Times New Roman", serif !important;
+	font-size: 2.15vh !important;
+	line-height: 2.15vh !important;
+	color: rgba(255, 255, 255, 0.84) !important;
+	text-shadow: 0 0 8px rgba(0, 0, 0, 0.95), 0 0 10px rgba(255, 255, 255, 0.2) !important;
+	pointer-events: none;
+}
+#crosshair.active {
+	color: var(--tws-gold) !important;
+	text-shadow: 0 0 10px rgba(216, 184, 90, 0.58), 0 2px 6px rgba(0, 0, 0, 0.95) !important;
+}
+#crosshair.attached {
+	color: var(--tws-blue) !important;
+	text-shadow: 0 0 10px rgba(103, 200, 255, 0.48), 0 2px 6px rgba(0, 0, 0, 0.95) !important;
+}
+
+#cam-cursor-info {
+	position: absolute !important;
+	top: 40% !important;
+	bottom: auto !important;
+	left: 0.9vw !important;
+	transform: translateY(-50%) !important;
+	width: 11.8vw !important;
+	min-width: 11.8vw !important;
+	max-width: 11.8vw !important;
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 0.72vh !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	color: var(--tws-text) !important;
+	font-size: 1.14vh !important;
+	line-height: 1.45vh !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.01em !important;
+	text-align: left !important;
+	text-shadow: 0 2px 6px rgba(0, 0, 0, 0.98) !important;
+	pointer-events: none !important;
+}
+
+#cam-info,
+#cursor-info {
+	margin: 0 !important;
+	padding: 0.58vh 0.66vw 0.64vh 0.68vw !important;
+	background: rgba(5, 7, 11, 0.56) !important;
+	border: 1px solid rgba(255, 255, 255, 0.09) !important;
+	border-left: 2px solid rgba(216, 184, 90, 0.95) !important;
+	border-radius: 0 11px 11px 0 !important;
+	box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22) !important;
+	overflow: hidden !important;
+}
+
+#cursor-info {
+	border-left-color: rgba(103, 200, 255, 0.95) !important;
+}
+
+#cam-info > div:first-child,
+#cursor-info > div:first-child {
+	margin: 0 0 0.28vh 0 !important;
+	padding: 0 !important;
+	color: var(--tws-gold) !important;
+	font-size: 1.02vh !important;
+	line-height: 1.12vh !important;
+	font-weight: 950 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.12em !important;
+}
+
+#cursor-info > div:first-child {
+	color: #a7d8ff !important;
+}
+
+#cam-info > div:not(:first-child),
+#cursor-info > div:not(:first-child) {
+	display: flex !important;
+	justify-content: space-between !important;
+	gap: 0.45vw !important;
+	white-space: nowrap !important;
+}
+
+#cam-cursor-info span {
+	color: #fff !important;
+	font-weight: 900 !important;
+}
+
+#info {
+	position: absolute !important;
+	left: 50% !important;
+	bottom: 3.15vh !important;
+	transform: translateX(-50%) !important;
+	width: auto !important;
+	max-width: 86vw !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: flex-end !important;
+	gap: 0.42vh !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	color: var(--tws-text) !important;
+	font-size: 1.12vh !important;
+	line-height: 1.28vh !important;
+	font-weight: 680 !important;
+	text-align: center !important;
+	text-shadow: 0 2px 6px rgba(0, 0, 0, 0.98) !important;
+	pointer-events: none !important;
+}
+
+#entity-info,
+#spawn-info,
+#focus-info,
+#place-on-ground-container,
+#info > div:not(#controls):not(#entity-info):not(#spawn-info):not(#focus-info):not(#place-on-ground-container) {
+	max-width: 50vw !important;
+	padding: 0.26vh 0.72vw !important;
+	background: rgba(5, 7, 11, 0.62) !important;
+	border: 1px solid rgba(255, 255, 255, 0.12) !important;
+	border-radius: 999px !important;
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16) !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+
+#entity-info {
+	padding: 0.32vh 0.9vw !important;
+	font-size: 1.18vh !important;
+	font-weight: 800 !important;
+	background: rgba(5, 7, 11, 0.70) !important;
+}
+
+#info > div:not(#controls) span[style],
+#entity-type,
+#spawn-id,
+#model-name,
+#entity-net-id,
+#speed,
+#adjust-mode,
+#adjust-speed,
+#rotate-mode,
+#rotate-speed,
+#place-on-ground,
+#focus-target,
+#focus-mode {
+	color: rgba(245, 218, 142, 0.99) !important;
+	font-weight: 900 !important;
+}
+
+#controls {
+	pointer-events: auto !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	width: auto !important;
+	max-width: 88vw !important;
+	padding: 0.50vh 0.62vw !important;
+	margin: 0.22vh auto 0 auto !important;
+	background: rgba(5, 7, 11, 0.62) !important;
+	border: 1px solid rgba(255, 255, 255, 0.14) !important;
+	border-top-color: rgba(255, 255, 255, 0.22) !important;
+	border-radius: 13px !important;
+	box-shadow: 0 10px 26px rgba(0, 0, 0, 0.30) !important;
+	font-size: 0.94vh !important;
+	line-height: 1.08vh !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+}
+
+#controls .control-set {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.17vw !important;
+}
+
+#controls .control-and-help {
+	display: inline-flex !important;
+	align-items: center !important;
+	gap: 0.16vw !important;
+	padding: 0.05vh 0.14vw !important;
+	color: rgba(255, 255, 255, 0.78) !important;
+	border-right: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+#controls .control-set .control-and-help:last-child {
+	border-right: 0 !important;
+}
+
+#controls .control-and-help > div:first-child {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	min-width: 1.1vw !important;
+	min-height: 1.48vh !important;
+	padding: 0 0.13vw !important;
+	color: rgba(255, 255, 255, 0.98) !important;
+	background: rgba(255, 255, 255, 0.12) !important;
+	border: 1px solid rgba(255, 255, 255, 0.30) !important;
+	border-radius: 5px !important;
+	font-weight: 850 !important;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95) !important;
+}
+
+#controls .control {
+	font-family: "212 Keyboard" !important;
+	font-size: 1.62vh !important;
+	line-height: 1.16vh !important;
+}
+
+#controls .control-help,
+#controls .control-and-help > div:last-child {
+	padding-left: 0 !important;
+	color: rgba(255, 255, 255, 0.74) !important;
+	font-weight: 680 !important;
+}
+
+#controls .arrow-keys {
+	display: none !important;
+}
+
+#entity-info:empty,
+#spawn-info:empty,
+#focus-info:empty,
+#place-on-ground-container:empty {
+	display: none !important;
+}
+
+@media (max-width: 1400px) {
+	.menu { width: 31vw; }
+	#animation-menu { width: 48vw !important; min-width: 470px !important; }
+	#controls { max-width: 92vw !important; font-size: 0.86vh !important; }
+	#controls .control { font-size: 1.45vh !important; }
+}
+
+
+/* =========================================================
+   TWS Elegant UI v12 - mantém visual elegante v8 + rodapé em 2 linhas
+   ========================================================= */
+#info {
+	bottom: 3.6vh !important;
+	max-width: 90vw !important;
+}
+
+#entity-info,
+#spawn-info,
+#focus-info,
+#place-on-ground-container,
+#info > div:not(#controls):not(#entity-info):not(#spawn-info):not(#focus-info):not(#place-on-ground-container) {
+	background: rgba(5, 7, 11, 0.74) !important;
+	border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+#controls {
+	width: 76vw !important;
+	max-width: 76vw !important;
+	display: flex !important;
+	flex-wrap: wrap !important;
+	justify-content: center !important;
+	align-items: center !important;
+	white-space: normal !important;
+	overflow: visible !important;
+	row-gap: 0.44vh !important;
+	column-gap: 0.28vw !important;
+	padding: 0.72vh 0.92vw !important;
+	background: rgba(5, 7, 11, 0.82) !important;
+	border-color: rgba(255, 255, 255, 0.20) !important;
+	border-top-color: rgba(216, 184, 90, 0.38) !important;
+	border-radius: 16px !important;
+	box-shadow: 0 13px 30px rgba(0, 0, 0, 0.38) !important;
+	font-size: 1.08vh !important;
+	line-height: 1.24vh !important;
+}
+
+#controls .control-set {
+	width: 100% !important;
+	display: flex !important;
+	flex-wrap: wrap !important;
+	justify-content: center !important;
+	align-items: center !important;
+	column-gap: 0.30vw !important;
+	row-gap: 0.40vh !important;
+}
+
+#controls .control-and-help {
+	flex: 0 0 auto !important;
+	padding: 0.08vh 0.20vw !important;
+	gap: 0.20vw !important;
+	border-right: 1px solid rgba(255, 255, 255, 0.07) !important;
+	color: rgba(255, 255, 255, 0.86) !important;
+}
+
+#controls .control-and-help > div:first-child {
+	min-width: 1.50vw !important;
+	min-height: 1.98vh !important;
+	padding: 0.04vh 0.22vw !important;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.09)) !important;
+	border-color: rgba(255, 255, 255, 0.38) !important;
+	border-radius: 7px !important;
+	font-weight: 950 !important;
+}
+
+#controls .control {
+	font-family: "212 Keyboard" !important;
+	font-size: 2.12vh !important;
+	line-height: 1.38vh !important;
+}
+
+#controls .control-help,
+#controls .control-and-help > div:last-child {
+	font-size: 1.06vh !important;
+	line-height: 1.24vh !important;
+	font-weight: 760 !important;
+	color: rgba(255, 255, 255, 0.84) !important;
+}
+
+@media (max-width: 1800px) {
+	#controls {
+		width: 82vw !important;
+		max-width: 82vw !important;
+	}
+}
+
+@media (max-width: 1400px) {
+	#controls {
+		width: 88vw !important;
+		max-width: 88vw !important;
+		padding: 0.66vh 0.76vw !important;
+	}
+	#controls .control {
+		font-size: 1.94vh !important;
+	}
+	#controls .control-and-help > div:first-child {
+		min-width: 1.42vw !important;
+		min-height: 1.86vh !important;
+	}
+}
+
+/* =========================================================
+   PATCH V14 - não muda o visual, só corrige o rodapé
+   Mantém somente o conjunto de controles ativo visível.
+   ========================================================= */
+
+#basic-controls[style*="display: none"],
+#entity-controls[style*="display: none"] {
+	display: none !important;
+}
+
+#basic-controls,
+#entity-controls {
+	flex-wrap: wrap !important;
+	justify-content: center !important;
+	align-items: center !important;
+}
+
+#controls {
+	width: 78vw !important;
+	max-width: 78vw !important;
+	white-space: normal !important;
+	overflow: hidden !important;
+}
+
+@media (max-width: 1600px) {
+	#controls {
+		width: 82vw !important;
+		max-width: 82vw !important;
+	}
+}
+
+@media (max-width: 1400px) {
+	#controls {
+		width: 88vw !important;
+		max-width: 88vw !important;
+	}
+}
+
+
+/* =========================================================
+   TWS PATCH V22B - aplicado direto no style.css
+   Corrige sem depender de tws_layout_fix.css:
+   - painéis padronizados
+   - informações abaixo do Cursor
+   - rodapé menor
+   ========================================================= */
+
+/* Câmera/Cursor no lado esquerdo */
+#cam-cursor-info {
+    top: 37.5% !important;
+    left: 0.9vw !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    width: 11.8vw !important;
+    min-width: 11.8vw !important;
+    max-width: 11.8vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.72vh !important;
+    z-index: 25 !important;
+}
+
+/* Bloco de status abaixo do Cursor, no mesmo estilo */
+#info {
+    position: absolute !important;
+    left: 0.9vw !important;
+    top: 52.5% !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 11.8vw !important;
+    max-width: 11.8vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 0.46vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    text-align: left !important;
+    z-index: 24 !important;
+}
+
+#entity-info,
+#spawn-info,
+#focus-info,
+#place-on-ground-container,
+#info > div:not(#controls):not(#entity-info):not(#spawn-info):not(#focus-info):not(#place-on-ground-container) {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.42vh 0.62vw !important;
+    background: rgba(5, 7, 11, 0.72) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-left: 2px solid rgba(216, 184, 90, 0.88) !important;
+    border-radius: 0 10px 10px 0 !important;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.20) !important;
+    font-size: 1.02vh !important;
+    line-height: 1.25vh !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+#entity-info {
+    font-size: 1.08vh !important;
+    font-weight: 800 !important;
+}
+
+#info > div:not(#controls) span[style],
+#entity-type,
+#spawn-id,
+#model-name,
+#entity-net-id,
+#speed,
+#adjust-mode,
+#adjust-speed,
+#rotate-mode,
+#rotate-speed,
+#place-on-ground,
+#focus-target,
+#focus-mode {
+    color: rgba(245, 218, 142, 0.99) !important;
+    font-weight: 900 !important;
+}
+
+/* Rodapé menor e controlado */
+#controls {
+    position: fixed !important;
+    left: 50% !important;
+    bottom: 1.05vh !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    width: 70vw !important;
+    max-width: 70vw !important;
+    min-height: unset !important;
+    margin: 0 !important;
+    padding: 0.50vh 0.62vw !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    z-index: 30 !important;
+}
+
+/* Evita os dois conjuntos juntos */
+#basic-controls[style*="display: none"],
+#entity-controls[style*="display: none"] {
+    display: none !important;
+}
+
+#basic-controls:not([style*="display: none"]),
+#entity-controls:not([style*="display: none"]) {
+    display: flex !important;
+}
+
+#basic-controls,
+#entity-controls {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    column-gap: 0.24vw !important;
+    row-gap: 0.28vh !important;
+}
+
+#controls .control-and-help {
+    flex: 0 0 auto !important;
+}
+
+/* =========================================================
+   PAINÉIS PADRONIZADOS
+   Propriedades / Opções de Ped / Anexo / Veículo / Luz / Flags
+   ========================================================= */
+
+#properties-menu,
+#ped-options-menu,
+#vehicle-options-menu,
+#lights-options-menu,
+#attachment-options-menu,
+#config-flags-menu {
+    top: 50% !important;
+    right: 0.7vw !important;
+    transform: translateY(-50%) !important;
+    width: 23.5vw !important;
+    min-width: 23.5vw !important;
+    max-width: 23.5vw !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: 86vh !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    padding: 0.60vh 0.70vw !important;
+    box-sizing: border-box !important;
+}
+
+/* Propriedades: compactado e sem scroll */
+#properties {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding: 0.25vh 0 !important;
+}
+
+/* Menus secundários: mesmo padrão, com scroll só quando precisar */
+#ped-options,
+#vehicle-options,
+#lights-options,
+#config-flags-list,
+#attach-to-list {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    max-height: 76vh !important;
+    overflow-y: auto !important;
+    padding: 0.25vh 0.18vw 0.25vh 0 !important;
+    box-sizing: border-box !important;
+}
+
+#ped-options::-webkit-scrollbar,
+#vehicle-options::-webkit-scrollbar,
+#lights-options::-webkit-scrollbar,
+#config-flags-list::-webkit-scrollbar,
+#attach-to-list::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+#ped-options::-webkit-scrollbar-thumb,
+#vehicle-options::-webkit-scrollbar-thumb,
+#lights-options::-webkit-scrollbar-thumb,
+#config-flags-list::-webkit-scrollbar-thumb,
+#attach-to-list::-webkit-scrollbar-thumb {
+    background: rgba(216, 184, 90, 0.72) !important;
+    border-radius: 999px !important;
+}
+
+/* Cabeçalho */
+#properties-menu-entity {
+    padding: 0.38vh 0.50vw !important;
+    margin-bottom: 0.34vh !important;
+    min-height: 2.45vh !important;
+    font-size: 1.28vh !important;
+    line-height: 1.55vh !important;
+}
+
+/* Linhas, labels e values */
+#properties-menu .property,
+#ped-options-menu .property,
+#vehicle-options-menu .property,
+#lights-options-menu .property,
+#attachment-options-menu .property,
+#config-flags-menu .property {
+    padding: 0.20vh 0 !important;
+    margin: 0 !important;
+}
+
+#properties-menu .label,
+#ped-options-menu .label,
+#vehicle-options-menu .label,
+#lights-options-menu .label,
+#attachment-options-menu .label,
+#config-flags-menu .label,
+#properties-menu .value,
+#ped-options-menu .value,
+#vehicle-options-menu .value,
+#lights-options-menu .value,
+#attachment-options-menu .value,
+#config-flags-menu .value {
+    font-size: 1.18vh !important;
+    line-height: 1.34vh !important;
+}
+
+/* Botões e inputs */
+#properties-menu button,
+#ped-options-menu button,
+#vehicle-options-menu button,
+#lights-options-menu button,
+#attachment-options-menu button,
+#config-flags-menu button,
+#properties-menu input,
+#properties-menu select,
+#ped-options-menu input,
+#ped-options-menu select,
+#vehicle-options-menu input,
+#vehicle-options-menu select,
+#lights-options-menu input,
+#lights-options-menu select,
+#attachment-options-menu input,
+#attachment-options-menu select,
+#config-flags-menu input,
+#config-flags-menu select {
+    min-height: 2.30vh !important;
+    height: 2.30vh !important;
+    padding: 0.12vh 0.34vw !important;
+    font-size: 1.18vh !important;
+    line-height: 1.25vh !important;
+    border-radius: 8px !important;
+}
+
+/* Posição e rotação em grade uniforme */
+#properties-menu .labelled-input-group,
+#attachment-options-menu .labelled-input-group {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto !important;
+    gap: 0.28vh 0.30vw !important;
+    align-items: end !important;
+}
+
+#properties-menu .labelled-input,
+#attachment-options-menu .labelled-input {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.10vh !important;
+    min-width: 0 !important;
+}
+
+#properties-menu .labelled-input .input-label,
+#attachment-options-menu .labelled-input .input-label {
+    display: block !important;
+    font-size: 0.94vh !important;
+    line-height: 1.0vh !important;
+    opacity: 0.82 !important;
+    text-transform: uppercase !important;
+}
+
+#properties-menu .labelled-input input,
+#attachment-options-menu .labelled-input input {
+    width: 100% !important;
+}
+
+#properties-menu .copy-button,
+#attachment-options-menu .copy-button {
+    width: 2.25vw !important;
+    min-width: 2.25vw !important;
+    height: 2.30vh !important;
+}
+
+/* Botões lado a lado */
+#properties-menu .property.multiple,
+#ped-options-menu .property.multiple,
+#vehicle-options-menu .property.multiple,
+#lights-options-menu .property.multiple {
+    display: flex !important;
+    gap: 0.45vw !important;
+}
+
+#properties-menu .property.multiple button,
+#ped-options-menu .property.multiple button,
+#vehicle-options-menu .property.multiple button,
+#lights-options-menu .property.multiple button {
+    flex: 1 1 0 !important;
+}
+
+/* Anexo e flags */
+#attachment-bone-container {
+    display: grid !important;
+    grid-template-columns: 1fr 5.2vw !important;
+    gap: 0.35vw !important;
+    align-items: center !important;
+}
+
+.attachment-option,
+.add-config-flag-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.45vw !important;
+    margin: 0.22vh 0 !important;
+    font-size: 1.08vh !important;
+    line-height: 1.24vh !important;
+}
+
+.add-config-flag-container input {
+    flex: 1 1 auto !important;
+}
+
+/* Fechar/Voltar logo depois do conteúdo */
+#properties-menu-close-btn,
+#ped-options-menu-close,
+#vehicle-options-menu-close,
+#lights-options-menu-close,
+#attachment-options-menu-close,
+#close-config-flags-menu {
+    flex: 0 0 auto !important;
+    position: static !important;
+    width: 100% !important;
+    margin-top: 0.45vh !important;
+    min-height: 2.60vh !important;
+    height: 2.60vh !important;
+}
+
+/* Responsivo */
+@media (max-width: 1600px) {
+    #controls {
+        width: 76vw !important;
+        max-width: 76vw !important;
+    }
+
+    #properties-menu,
+    #ped-options-menu,
+    #vehicle-options-menu,
+    #lights-options-menu,
+    #attachment-options-menu,
+    #config-flags-menu {
+        width: 25vw !important;
+        min-width: 25vw !important;
+        max-width: 25vw !important;
+    }
+}

@@ -1,0 +1,870 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>TWS Elegant Spooner</title>
+		<link rel="stylesheet" href="style.css?v=22b">
+		<link rel="stylesheet" href="rdr3.css">
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<div id="hud">
+			<div id="crosshair" class="inactive">+</div>
+			<div id="info">
+				<div id="entity-info"><span id="entity-type"></span>: <span id="entity-id"></span> (<span id="model-name"></span>) <span id="entity-net-id"></span></div>
+				<div id="spawn-info">Criar: <span id="spawn-id"></span></div>
+				<div><span style="font-weight: bold;">Velocidade: </span><span id="speed"></span></div>
+				<div><span style="font-weight: bold;">Ajuste Rato: </span><span id="adjust-mode"></span> - Veloc: <span id="adjust-speed"></span></div>
+				<div><span style="font-weight: bold;">Rodar: </span><span id="rotate-mode"></span> - Veloc: <span id="rotate-speed"></span></div>
+				<div id="focus-info" style="display: none">Foco: <span id="focus-target"></span> (<span id="focus-mode"></span>)</div>
+				<div id="place-on-ground-container">Colar ao Chão: <span id="place-on-ground"></span></div>
+				<div id="controls">
+					<div id="basic-controls" class="control-set">
+						<div class="control-and-help">
+							<div class="control">WASD</div>
+							<div class="control-help">Mover</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">wg</div>
+							<div class="control-help">Cima/Baixo</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">E</div>
+							<div class="control-help">Criar</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">F</div>
+							<div class="control-help">Menu Criação</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">X</div>
+							<div class="control-help">Base de Dados</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">J</div>
+							<div class="control-help">BDs Guardadas</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">vu</div>
+							<div>Velocidade +/-</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">R</div>
+							<div class="control-help">Sel. Velocidade</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">c</div>
+							<div class="control-help">Modo Foco</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">N</div>
+							<div class="control-help">IDs Entidade</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">H</div>
+							<div class="control-help">Ajuda</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">k</div>
+							<div class="control-help">Sair</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">1</div>
+							<div class="control-help">Ocultar Controlos</div>
+						</div>
+					</div>
+					<div id="entity-controls" class="control-set" style="display: none;">
+						<div class="control-and-help">
+							<div>[BEM]</div>
+							<div class="control-help">Selecionar</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">QZ</div>
+							<div class="arrow-keys">
+								<div>q</div>
+								<div>r</div>
+								<div>s</div>
+								<div>t</div>
+							</div>
+							<div class="control-help">Ajustar</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">78I</div>
+							<div class="control-help">Modo Rato</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">U</div>
+							<div class="control-help">Colar</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">CV</div>
+							<div class="control-help">Rodar</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">B</div>
+							<div class="control-help">Eixo</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">e</div>
+							<div class="control-help">Propriedades</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">G</div>
+							<div class="control-help">Clonar</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">b</div>
+							<div class="control-help">Foco</div>
+						</div>
+						<div class="control-and-help">
+							<div class="control">c</div>
+							<div class="control-help">Modo Foco</div>
+						</div>
+						<div class="control-and-help">
+							<div>[BDM]</div>
+							<div class="control-help">Apagar</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="cam-cursor-info">
+				<div id="cam-info">
+					<div><span style="font-weight: bold;">Câmara:</span></div>
+					<div>X: <span id="cam-x"></span></div>
+					<div>Y: <span id="cam-y"></span></div>
+					<div>Z: <span id="cam-z"></span></div>
+					<div>Direção: <span id="cam-heading"></span></div>
+				</div>
+				<div id="cursor-info">
+					<div><span style="font-weight: bold;">Cursor:</span></div>
+					<div>X: <span id="cursor-x"></span></div>
+					<div>Y: <span id="cursor-y"></span></div>
+					<div>Z: <span id="cursor-z"></span></div>
+				</div>
+			</div>
+		</div>
+		<div id="spawn-menu" class="menu">
+			<div id="spawn-categories">
+				<div class="spawn-category">
+					<button id="spawn-menu-peds">Peds</button>
+				</div>
+				<div class="spawn-category">
+					<button id="spawn-menu-vehicles">Veículos</button>
+				</div>
+				<div class="spawn-category">
+					<button id="spawn-menu-objects">Objetos</button>
+				</div>
+				<div class="spawn-category">
+					<button id="spawn-menu-propsets">Propsets</button>
+				</div>
+				<div class="spawn-category">
+					<button id="spawn-menu-pickups">Pickups</button>
+				</div>
+				<div class="spawn-category">
+					<button id="spawn-menu-spooni">Spooni</button>
+				</div>
+			</div>
+			<button id="spawn-menu-close">Fechar</button>
+		</div>
+		<div id="ped-menu" class="menu">
+			<div id="ped-search" class="search">
+				<input type="text" id="ped-search-filter" class="search-filter" value="">
+				<button id="favourite-peds" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="ped-list" class="list"></div>
+			<button id="ped-spawn-by-name" class="spawn-by-name">Criar por Nome</button>
+			<button id="ped-menu-close-btn">Voltar</button>
+		</div>
+		<div id="vehicle-menu" class="menu">
+			<div id="vehicle-search" class="search">
+				<input type="text" id="vehicle-search-filter" class="search-filter" value="">
+				<button id="favourite-vehicles" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="vehicle-list" class="list"></div>
+			<button id="vehicle-spawn-by-name" class="spawn-by-name">Criar por Nome</button>
+			<button id="vehicle-menu-close-btn">Voltar</button>
+		</div>
+		<div id="object-menu" class="menu">
+			<div id="object-search" class="search">
+				<input type="text" id="object-search-filter" class="search-filter" value="">
+				<button id="favourite-objects" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="object-list" class="list"></div>
+			<button id="object-spawn-by-name" class="spawn-by-name">Criar por Nome</button>
+			<button id="object-menu-close-btn">Voltar</button>
+		</div>
+		<div id="spooni-menu" class="menu">
+			<div id="spooni-search" class="search">
+				<input type="text" id="spooni-search-filter" class="search-filter" value="">
+				<button id="favourite-spooni" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="spooni-list" class="list"></div>
+			<button id="spooni-spawn-by-name" class="spawn-by-name">Criar por Nome</button>
+			<button id="spooni-menu-close-btn">Voltar</button>
+		</div>
+		<div id="object-database" class="menu">
+			<div id="object-database-search" class="search">
+				<input type="text" id="object-database-search-filter" class="search-filter" value="">
+			</div>
+			<div id="object-database-stats">
+				<div class="object-database-stat">Tudo: <span id="object-database-total-entities"></span></div>
+				<div class="object-database-stat">Rede: <span id="object-database-total-networked"></span></div>
+				<div class="object-database-stat">Ped: <span id="object-database-total-peds"></span></div>
+				<div class="object-database-stat">Vei: <span id="object-database-total-vehicles"></span></div>
+				<div class="object-database-stat">Obj: <span id="object-database-total-objects"></span></div>
+				<div class="object-database-stat">Spo: <span id="spooni-database-total-spooni"></span></div>
+			</div>
+			<div id="object-database-list" class="list"></div>
+			<button id="add-to-db-btn">Adicionar à BD</button>
+			<button id="object-database-delete-all-btn">Eliminar Tudo</button>
+			<button id="object-database-close-btn">Fechar</button>
+		</div>
+		<div id="add-to-db-menu" class="menu">
+			<div id="add-to-db-options">
+				<span>Handle:</span>
+				<input id="custom-entity-handle">
+				<button id="add-custom-entity-btn">Adicionar</button>
+			</div>
+			<button id="add-to-db-menu-close">Voltar</button>
+		</div>
+		<div id="attachment-options-menu" class="menu">
+			<button id="attachment-options-detach">Desanexar</button>
+			<div id="attach-to-list" class="list"></div>
+			<div>
+				<div class="property">
+					<div class="label">Osso (Bone)</div>
+					<div id="attachment-bone-container">
+						<select class="set-attach" id="attachment-bone-name"></select>
+						<input class="set-attach" id="attachment-bone-index" type="number" min="0" step="1" value="0">
+					</div>
+				</div>
+				<div class="property">
+					<div class="label">Posição</div>
+					<div class="labelled-input-group">
+						<div class="labelled-input">
+							<div class="input-label">Veloc</div>
+							<input type="number" class="adjust-speed" id="attachment-adjust-speed" step="0.01">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">X</div>
+							<input type="number" class="set-attach adjust-input" id="attachment-x" step="0.01">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Y</div>
+							<input type="number" class="set-attach adjust-input" id="attachment-y" step="0.01">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Z</div>
+							<input type="number" class="set-attach adjust-input" id="attachment-z" step="0.01">
+						</div>
+						<button id="copy-attachment-position" class="copy-button">
+							<i><img src="./img/clipboard.svg" width="24" height="24"></i>
+						</button>
+					</div>
+				</div>
+				<div class="property">
+					<div class="label">Rotação</div>
+					<div class="labelled-input-group">
+						<div class="labelled-input">
+							<div class="input-label">Veloc</div>
+							<input type="number" class="rotate-speed" id="attachment-rotate-speed" step="0.1">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Incl.</div>
+							<input type="number" class="set-attach rotate-input" id="attachment-pitch" step="1.0" min="-359" max="359">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Rolam.</div>
+							<input type="number" class="set-attach rotate-input" id="attachment-roll" step="1.0" min="-359" max="359">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Guin.</div>
+							<input type="number" class="set-attach rotate-input" id="attachment-yaw" step="1.0" min="-359" max="359">
+						</div>
+						<button id="copy-attachment-rotation" class="copy-button">
+							<i><img src="./img/clipboard.svg" width="24" height="24"></i>
+						</button>
+					</div>
+				</div>
+				<div class="attachment-option">
+					<input type="checkbox" id="attachment-keep-pos">
+					<span>Manter posição no mundo</span>
+				</div>
+				<div class="attachment-option">
+					<input class="set-attach" type="checkbox" id="attachment-use-soft-pinning">
+					<span>Usar fixação suave</span>
+				</div>
+				<div class="attachment-option">
+					<input class="set-attach" type="checkbox" id="attachment-collision" checked>
+					<span>Colisão</span>
+				</div>
+				<div class="attachment-option">
+					<div class="input-label">Vértice</div>
+					<input class="set-attach" type="number" id="attachment-vertex" min="0" step="1">
+				</div>
+				<div class="attachment-option">
+					<input class="set-attach" type="checkbox" id="attachment-fixed-rot" checked>
+					<span>Rotação fixa</span>
+				</div>
+			</div>
+			<button id="attachment-options-menu-close">Voltar</button>
+		</div>
+		<div id="properties-menu" class="menu">
+			<div id="properties-menu-entity">
+				<div class="label">Propriedades de <span id="properties-menu-entity-type"></span></div>
+				<div class="value" id="properties-menu-entity-id"></div>
+			</div>
+			<div id="properties" class="list">
+				<div class="property" id="properties-model-container">
+					<div class="label">Modelo</div>
+					<div class="value" id="properties-model"></div>
+					<button id="copy-model-name" class="copy-button">
+						<i aria-hidden="true"><img src="./img/clipboard.svg" width="24" height="24"></i>
+					</button>
+				</div>
+				<div class="property multiple">
+					<button id="properties-select">Selecionar</button>
+					<button id="properties-focus">Focar</button>
+				</div>
+				<div class="property">
+					<button id="properties-add-to-db" class="add-remove-db">Adicionar à BD</button>
+					<button id="properties-remove-from-db" class="add-remove-db">Remover da BD</button>
+				</div>
+				<div class="property">
+					<button id="properties-freeze">Congelar</button>
+					<button id="properties-unfreeze">Descongelar</button>
+				</div>
+				<div class="property">
+					<div class="label">Posição</div>
+					<div class="labelled-input-group">
+						<div class="labelled-input">
+							<div class="input-label">Veloc</div>
+							<input type="number" class="adjust-speed" id="properties-adjust-speed" step="0.01">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">X</div>
+							<input type="number" class="set-coords adjust-input" id="properties-x" step="0.01">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Y</div>
+							<input type="number" class="set-coords adjust-input" id="properties-y" step="0.01">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Z</div>
+							<input type="number" class="set-coords adjust-input" id="properties-z" step="0.01">
+						</div>
+						<button id="copy-position" class="copy-button">
+							<i><img src="./img/clipboard.svg" width="24" height="24"></i>
+						</button>
+					</div>
+				</div>
+				<div class="property multiple">
+					<button id="properties-place-here">Colocar Aqui</button>
+					<button id="properties-goto">Ir Para</button>
+				</div>
+				<div class="property">
+					<div class="label">Rotação</div>
+					<div class="labelled-input-group">
+						<div class="labelled-input">
+							<div class="input-label">Veloc</div>
+							<input type="number" class="rotate-speed" id="properties-rotate-speed" step="0.1">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Incl.</div>
+							<input type="number" class="set-rotation rotate-input" id="properties-pitch" min="-359" max="359" step="1">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Rolam.</div>
+							<input type="number" class="set-rotation rotate-input" id="properties-roll" min="-359" max="359" step="1">
+						</div>
+						<div class="labelled-input">
+							<div class="input-label">Guin.</div>
+							<input type="number" class="set-rotation rotate-input" id="properties-yaw" min="-359" max="359" step="1">
+						</div>
+						<button id="copy-rotation" class="copy-button">
+							<i><img src="./img/clipboard.svg" width="24" height="24"></i>
+						</button>
+					</div>
+				</div>
+				<div class="property">
+					<button id="properties-reset-rotation">Repor Rotação</button>
+				</div>
+				<div class="property">
+					<div class="label">Vida (Health)</div>
+					<input type="number" id="properties-health" min="0" step="1">
+				</div>
+				<div class="property multiple">
+					<button id="properties-invincible-on">Invencibilidade Lig</button>
+					<button id="properties-invincible-off">Invencibilidade Des</button>
+				</div>
+				<div class="property">
+					<button id="properties-visible">Visibilidade Lig</button>
+					<button id="properties-invisible">Visibilidade Des</button>
+				</div>
+				<div class="property multiple">
+					<button id="properties-gravity-on">Gravidade Lig</button>
+					<button id="properties-gravity-off">Gravidade Des</button>
+				</div>
+				<div class="property">
+					<button id="properties-collision-on">Colisão Lig</button>
+					<button id="properties-collision-off">Colisão Des</button>
+				</div>
+				<div class="property">
+					<button id="properties-clone">Clonar</button>
+				</div>
+				<div class="property">
+					<button id="properties-attach">Opções de Anexo</button>
+				</div>
+				<div class="property ped-property">
+					<button id="properties-ped-options">Opções de Ped</button>
+				</div>
+				<div class="property vehicle-property">
+					<button id="properties-vehicle-options">Opções de Veículo</button>
+				</div>
+				<div class="property object-property">
+					<button id="properties-lights-options">Opções de Luz</button>
+				</div>
+				<div class="property">
+					<button id="properties-register-as-networked">Registar na Rede</button>
+					<button id="properties-request-control">Pedir Controlo</button>
+				</div>
+				<div class="property">
+					<button id="properties-delete">Eliminar</button>
+				</div>
+			</div>
+			<button id="properties-menu-close-btn">Fechar</button>
+		</div>
+		<div id="ped-options-menu" class="menu">
+			<div id="ped-options" class="list">
+				<div class="property player-property">
+					<button id="properties-player-model">Mudar Modelo</button>
+				</div>
+				<div class="property">
+					<div class="label">Traje (Outfit)</div>
+					<input type="number" id="properties-outfit" min="-1" step="1">
+				</div>
+				<div class="property">
+					<button id="properties-add-to-group">Adic. ao Grupo</button>
+					<button id="properties-remove-from-group">Remover do Grupo</button>
+				</div>
+				<div class="property">
+					<button id="properties-scenario">Cenários</button>
+				</div>
+				<div class="property">
+					<button id="properties-animation">Animações</button>
+				</div>
+				<div class="property">
+					<button id="properties-clear-ped-tasks">Limpar Tarefas</button>
+				</div>
+				<div class="property">
+					<button id="properties-clear-ped-tasks-immediately">Limpar Tarefas Imediatamente</button>
+				</div>
+				<div class="property">
+					<button id="properties-give-weapon">Dar Arma</button>
+				</div>
+				<div class="property">
+					<button id="properties-remove-all-weapons">Remover Todas as Armas</button>
+				</div>
+				<div class="property">
+					<button id="properties-set-on-mount">Colocar na Montada</button>
+				</div>
+				<div class="property">
+					<button id="properties-enter-vehicle">Entrar no Veículo</button>
+				</div>
+				<div class="property">
+					<button id="properties-resurrect-ped">Ressuscitar</button>
+				</div>
+				<div class="property multiple">
+					<button id="properties-ai-on">IA Lig</button>
+					<button id="properties-ai-off">IA Des</button>
+				</div>
+				<div class="property">
+					<button id="properties-clean">Limpar</button>
+				</div>
+				<div class="property">
+					<button id="properties-knock-off-props">Derrubar Adereços</button>
+				</div>
+				<div class="property">
+					<button id="properties-walk-style">Estilo de Andar</button>
+				</div>
+				<div class="property">
+					<button id="properties-clone-ped">Clonar</button>
+				</div>
+				<div class="property">
+					<button id="properties-clone-to-target">Clonar para Alvo</button>
+				</div>
+				<div class="property multiple">
+					<button id="properties-look-at-entity">Olhar Para</button>
+					<button id="properties-clear-look-at">Parar de Olhar</button>
+				</div>
+				<div class="property">
+					<button id="properties-go-to-waypoint">Ir para o Marcador</button>
+				</div>
+				<div class="property">
+					<button id="properties-go-to-entity">Ir para Entidade</button>
+				</div>
+				<div class="property">
+					<button id="properties-attack">Atacar</button>
+				</div>
+				<div class="property local">
+					<div class="label">Escala (local)</div>
+					<input type="number" id="properties-scale" min="0.1" max="10.0" step="0.1" value="1.0">
+				</div>
+				<div class="property local">
+					<button id="properties-config-flags">Flags de Config</button>
+				</div>
+			</div>
+			<button id="ped-options-menu-close">Voltar</button>
+		</div>
+		<div id="entity-select-menu" class="menu"></div>
+		<div id="walk-style-menu" class="menu">
+			<div id="walk-style-search" class="search">
+				<input type="text" id="walk-style-search-filter" class="search-filter" value="">
+				<button id="favourite-walk-styles" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="walk-style-list" class="list"></div>
+			<button id="walk-style-menu-close">Voltar</button>
+		</div>
+		<div id="weapon-menu" class="menu">
+			<div id="weapon-search" class="search">
+				<input type="text" id="weapon-search-filter" class="search-filter" value="">
+				<button id="favourite-weapons" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="weapon-list" class="list"></div>
+			<button id="weapon-menu-close">Voltar</button>
+		</div>
+		<div id="vehicle-options-menu" class="menu">
+			<div id="vehicle-options" class="list">
+				<div class="property">
+					<button id="properties-repair-vehicle">Reparar Veículo</button>
+				</div>
+				<div class="property">
+					<button id="properties-get-in">Entrar no Veículo</button>
+				</div>
+				<div class="property multiple">
+					<button id="properties-engine-on">Motor Lig</button>
+					<button id="properties-engine-off">Motor Des</button>
+				</div>
+				<div class="property multiple">
+					<button id="properties-vehicle-lights-on">Luzes Lig</button>
+					<button id="properties-vehicle-lights-off">Luzes Des</button>
+				</div>
+			</div>
+			<button id="vehicle-options-menu-close">Voltar</button>
+		</div>
+		<div id="scenario-menu" class="menu">
+			<div id="scenario-search" class="search">
+				<input type="text" id="scenario-search-filter" class="search-filter" value="">
+				<button id="favourite-scenarios" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="scenario-list" class="list"></div>
+			<button id="scenario-stop">Parar Cenário</button>
+			<button id="scenario-menu-close">Voltar</button>
+		</div>
+		<div id="save-load-db-menu" class="menu">
+			<div id="db-list" class="list"></div>
+			<div id="load-db-options">
+				<div>
+					<input id="load-db-relative" type="checkbox">
+					<span>Carregar relativo à posição do cursor</span>
+				</div>
+				<div>
+					<input id="replace-db" type="checkbox">
+					<span>Substituir BD atual</span>
+				</div>
+				<div>
+					<input id="store-deleted" type="checkbox">
+					<span>Guardar/Carregar eliminações</span>
+				</div>
+			</div>
+			<div id="save-db-options">
+				<input id="save-db-name" type="text">
+				<button id="save-db-btn">Guardar</button>
+			</div>
+			<button id="import-export-db-btn">Importar/Exportar</button>
+			<button id="save-load-db-menu-close-btn">Fechar</button>
+		</div>
+		<div id="import-export-db">
+			<div id="import-export-controls">
+				<select id="import-export-format">
+					<option value="ymap">YMAP</option>
+					<option value="mlo">MLO</option>
+					<option value="script">Prop Loader</option>
+					<option value="script-deleter">Prop Deleter</option>
+					<option value="map-editor-xml">Map Editor XML</option>
+					<option value="doorhash">Doorhash</option>
+					<option value="offset">Offset</option>
+					<option value="propset">Propset XML</option>
+					<option value="spooner-db-json">Spooner DB JSON</option>
+					<option value="backup">Spooner Backup</option>
+					<option value="propplacer">propplacer JSON</option>
+				</select>
+				<input type="text" id="import-url" placeholder="Importar de URL">
+				<button id="import-db">Importar</button>
+				<button id="export-db">Exportar</button>
+			</div>
+			<textarea id="import-export-content" spellcheck="false"></textarea>
+			<button id="import-export-db-close">Fechar</button>
+		</div>
+		<div id="delete-db-prompt">
+			<button id="yes-delete-db">Sim</button>
+			<button id="no-delete-db">Não</button>
+		</div>
+		<div id="offset-db-prompt">
+			<input type="text" id="input-offset-db" placeholder="Deve ser formatado assim: 100.76, 42.0, 0.53">
+			<input type="text" id="input-rotation-db" placeholder="Deve ser formatado assim: 100.76, 42.0, 0.53">
+			<button id="confirm-offset-db">Confirmar</button>
+			<button id="cancel-offset-db">Cancelar</button>
+		</div>
+		<div id="lights-options-menu" class="menu">
+			<div id="lights-options" class="list">
+				<div class="property">
+					<div class="label">Intensidade (local)</div>
+					<input type="number" id="properties-lights-intensity" min="0" step="1">
+				</div>
+				<div class="property">
+					<div class="label">Cor (local)</div>
+					<input type="number" class="lights-colour" id="properties-lights-red" min="0" max="255" step="1">
+					<input type="number" class="lights-colour" id="properties-lights-green" min="0" max="255" step="1">
+					<input type="number" class="lights-colour" id="properties-lights-blue" min="0" max="255" step="1">
+				</div>
+				<div class="property">
+					<div class="label">Tipo (local)</div>
+					<input type="number" id="properties-lights-type" min="0" max="20" step="1">
+				</div>
+			</div>
+			<button id="lights-options-menu-close">Voltar</button>
+		</div>
+		<div id="animation-menu" class="menu">
+			<div id="animation-search" class="search">
+				<input type="text" id="animation-search-filter" class="search-filter" value="">
+				<button id="favourite-animations" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="animation-list" class="list"></div>
+			<div id="animation-settings">
+				<div class="property">
+					<div class="label">Máx Resultados (Total: <span id="animation-search-total-results"></span>)</div>
+					<input type="number" id="animation-search-max-results" value="1000" min="1" step="1">
+				</div>
+				<div class="property">
+					<div class="label">Velocidade Entrada (Blend In)</div>
+					<input type="number" id="animation-blend-in-speed" value="1.0">
+				</div>
+				<div class="property">
+					<div class="label">Velocidade Saída (Blend Out)</div>
+					<input type="number" id="animation-blend-out-speed" value="1.0">
+				</div>
+				<div class="property">
+					<div class="label">Duração</div>
+					<input type="number" id="animation-duration" value="-1">
+				</div>
+				<div class="property">
+					<div class="label">Flag</div>
+					<input type="number" id="animation-flag" min="0" value="1">
+				</div>
+				<div class="property">
+					<div class="label">Taxa de Reprodução</div>
+					<input type="number" id="animation-playback-rate" value="0.0">
+				</div>
+			</div>
+			<button id="animation-stop">Parar Animação</button>
+			<button id="animation-menu-close">Voltar</button>
+		</div>
+		<div id="propset-menu" class="menu">
+			<div id="propset-search" class="search">
+				<input type="text" id="propset-search-filter" class="search-filter" value="">
+				<button id="favourite-propsets" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="propset-list" class="list"></div>
+			<button id="propset-spawn-by-name" class="spawn-by-name">Criar por Nome</button>
+			<button id="propset-menu-close-btn">Voltar</button>
+		</div>
+		<div id="pickup-menu" class="menu">
+			<div id="pickup-search" class="search">
+				<input type="text" id="pickup-search-filter" class="search-filter" value="">
+				<button id="favourite-pickups" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="pickup-list" class="list"></div>
+			<button id="pickup-spawn-by-name" class="spawn-by-name">Criar por Nome</button>
+			<button id="pickup-menu-close-btn">Voltar</button>
+		</div>
+		<div id="player-model-menu" class="menu">
+			<div id="player-model-search" class="search">
+				<input type="text" id="player-model-search-filter" class="search-filter" value="">
+				<button id="favourite-player-models" class="favourites">
+					<i><img src="./img/star-off.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<div id="player-model-list" class="list"></div>
+			<button id="player-model-spawn-by-name" class="spawn-by-name">Criar por Nome</button>
+			<button id="player-model-menu-close-btn">Voltar</button>
+		</div>
+		<div id="config-flags-menu" class="menu">
+			<div id="config-flags-list" class="list"></div>
+			<div class="add-config-flag-container">
+				<div id="config-flag-label">Definir flag:</div>
+				<input id="config-flag" type="number" min="0" step="1" value="1">
+				<button id="add-config-flag">
+					<i><img src="./img/plus.svg" width="24" height="24"></i>
+				</button>
+			</div>
+			<button id="close-config-flags-menu">Voltar</button>
+		</div>
+		<div id="help-menu">
+			<h1>Ajuda do Spooner</h1>
+			<div id="help-content">
+				<h2>Cores do cursor</h2>
+				<table>
+					<tr>
+						<td style="color: #fff">+</td>
+						<td>Nenhuma entidade selecionada</td>
+					</tr>
+					<tr>
+						<td style="color: #0f0">+</td>
+						<td>Entidade destacada</td>
+					</tr>
+					<tr>
+						<td style="color: #0ff">+</td>
+						<td>Entidade anexada</td>
+					</tr>
+				</table>
+				<h2>Controlos</h2>
+				<table>
+					<tr>
+						<td class="control">WASD</td>
+						<td><strong>Mover</strong></td>
+					</tr>
+					<tr>
+						<td class="control">wg</td>
+						<td><strong>Cima</strong>/<strong>Baixo</strong></td>
+					</tr>
+					<tr>
+						<td class="control">E</td>
+						<td><strong>Criar</strong> entidade no cursor</td>
+					</tr>
+					<tr>
+						<td>Clique Esquerdo</td>
+						<td>
+							<ul>
+								<li>Entidade destacada: <strong>Anexar</strong> ao cursor</li>
+								<li>Entidade anexada: <strong>Desanexar</strong> do cursor</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Clique Direito</td>
+						<td><strong>Eliminar</strong> entidade selecionada</td>
+					</tr>
+					<tr>
+						<td class="control">CV</td>
+						<td><strong>Rodar</strong></td>
+					</tr>
+					<tr>
+						<td class="control">B</td>
+						<td>Mudar eixo de rotação</td>
+					</tr>
+					<tr>
+						<td class="control">QZqrst</td>
+						<td>Ajustar posição da entidade selecionada</td>
+					</tr>
+					<tr>
+						<td class="control">I</td>
+						<td>
+							Alternar modos de ajuste do rato:
+							<ul>
+								<li><strong>X</strong>: Move entidade no eixo X</li>
+								<li><strong>Y</strong>: Move entidade no eixo Y</li>
+								<li><strong>Z</strong>: Move entidade no eixo Z</li>
+								<li><strong>Rodar</strong>: Roda a entidade</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td class="control">U</td>
+						<td>Alternar colar ao chão no ajuste de rato</td>
+					</tr>
+					<tr>
+						<td class="control">7</td>
+						<td><strong>Desligar</strong> ajuste de rato (apenas teclas funcionam)</td>
+					</tr>
+					<tr>
+						<td class="control">8</td>
+						<td>Voltar ao modo <strong>Livre</strong> de rato</td>
+					</tr>
+					<tr>
+						<td class="control">G</td>
+						<td><strong>Clonar</strong> entidade selecionada</td>
+					</tr>
+					<tr>
+						<td class="control">b</td>
+						<td><strong>Focar</strong> na entidade selecionada</td>
+					</tr>
+					<tr>
+						<td class="control">c</td>
+						<td>
+							Alternar <strong>Modo de Foco</strong>:
+							<ul>
+								<li><strong>Fixo</strong>: Câmara gira à volta da entidade</li>
+								<li><strong>Livre</strong>: Câmara roda livremente</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td class="control">M</td>
+						<td>Alternar <strong>identificadores de entidade</strong></td>
+					</tr>
+					<tr>
+						<td><span class="control">vu</span> Roda Rato</td>
+						<td>Aumentar/Diminuir <strong>velocidade</strong></td>
+					</tr>
+					<tr>
+						<td class="control">R</td>
+						<td>Alternar qual velocidade ajustar</td>
+					</tr>
+					<tr>
+						<td class="control">F</td>
+						<td>Abrir menu <strong>Criação</strong></td>
+					</tr>
+					<tr>
+						<td class="control">X</td>
+						<td>Abrir menu <strong>Base de Dados</strong></td>
+					</tr>
+					<tr>
+						<td class="control">e</td>
+						<td>Abrir menu <strong>Propriedades</strong></td>
+					</tr>
+					<tr>
+						<td class="control">J</td>
+						<td>Abrir menu <strong>Guardar/Carregar BD</strong></td>
+					</tr>
+					<tr>
+						<td class="control">k</td>
+						<td><strong>Sair</strong> do Spooner</td>
+					</tr>
+				</table>
+			</div>
+			<div id="help-menu-controls">
+				<button id="help-menu-close-btn">Fechar</button>
+			</div>
+		</div>
+	</body>
+</html>
