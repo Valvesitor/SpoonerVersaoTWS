@@ -1,133 +1,174 @@
-# 💻 Spooner
-Documentation relating to the [spooni_spooner](https://github.com/Spooni-Development/spooni_spooner).
+# Spooner Versao TWS
 
-## 1. Installation
-spooni_spooner works Standalone. 
+Esta e uma versao modificada do Spooner para RedM, distribuida como free resource pela The Wanted Sole Studio.
 
-To install spooni_spooner:
-- Download the resource
-  - On [Github](https://github.com/Spooni-Development/spooni_spooner)
-- Ensure that all requirements are installed
-  - [uiprompt](https://github.com/kibook/redm-uiprompt)
-- Drag and drop the resource into your resources folder
-  - `spooni_spooner`
-- Add this ensure in your server.cfg  
-  ```
-    ensure spooni_spooner
-  ```
-- Add the permissions' exec to the server.cfg
-  ```
-    exec @spooni_spooner/permissions.cfg
-  ```
-- Or define the permission yourself
-  ```
-  add_ace group.admin spooner.view allow
-  add_ace group.admin spooner.spawn allow
-  add_ace group.admin spooner.modify.own allow
-  add_ace group.admin spooner.delete.own allow
-  add_ace group.admin spooner.properties allow
+A base original do projeto pertence ao `kibook/spooner`. A The Wanted Sole Studio fez ajustes, melhorias internas e adicionou funcoes para facilitar o uso dentro do servidor.
 
-  add_ace group.admin spooner.noEntityLimit allow
-  add_ace group.admin spooner.modify.other allow
-  add_ace group.admin spooner.delete.other allow
-  ```
-- At the end
-  - Restart the server
+## Informacoes
 
-If you have any problems, you can always open a ticket in the [Spooni Discord](https://discord.gg/spooni).
+| Campo | Valor |
+| --- | --- |
+| Nome | Spooner Versao TWS |
+| Categoria | Free Resource |
+| Base original | kibook/spooner |
+| Modificado por | The Wanted Sole Studio |
+| Plataforma | RedM |
+| Status | Gratuito |
 
-## 2. Usage
-## Cursor colours
+## O que foi alterado
 
-| Colour | Meaning            |
-|--------|--------------------|
-| white  | No entity selected |
-| green  | Entity highlighted |
-| blue   | Entity attached    |
+- Script ajustado para uso em servidores RedM.
+- Interface ajustada para o padrao visual TWS.
+- Nova funcao para localizar peds/metapeds carregados no servidor.
+- Suporte a peds em formatos comuns de resource, como `stream`, `data_files`, `data` e `metapeds`.
+- Suporte a pastas customizadas via `Config.PedResourcePathHints`.
+- Suporte a lista manual de peds via `Config.ServerPeds`.
+- Ajustes internos para facilitar uso, busca e organizacao.
+- Resource preparado para distribuicao como free resource.
 
-## Controls
+## Peds do servidor
 
-| Control                   | Function                                                                         |
-|---------------------------|----------------------------------------------------------------------------------|
-| W/A/S/D                   | Move                                                                             |
-| Spacebar/Shift            | Up/Down                                                                          |
-| E                         | Spawn                                                                            |
-| Left click                | Entity highlighted: Attach, Entity attached: Detach                              |
-| Right click               | Delete selected entity                                                           |
-| C/V                       | Rotate                                                                           |
-| B                         | Change rotation axis                                                             |
-| Q/Z/Arrow keys            | Adjust selected entity position                                                  |
-| I                         | Cycle between controlled mouse adjustment modes                                  |
-| U                         | Toggle whether entities stick to the ground in controlled mouse adjustment modes |
-| 7                         | Turn off mouse adjustment                                                        |
-| 8                         | Return to Free mouse adjustment mode                                             |
-| G                         | Clone selected entity                                                            |
-| Pg Up/Pg Down/Mouse wheel | Change currently selected speed                                                  |
-| R                         | Cycle between which speed to change                                              |
-| F                         | Open the Spawn menu                                                              |
-| X                         | Open the Database menu                                                           |
-| Tab                       | Open the Properties menu for the selected entity                                 |
-| J                         | Open the Save/Load Database menu                                                 |
-| Delete                    | Exit Object Spooner                                                              |
+Esta versao tenta encontrar automaticamente os peds/metapeds que estao iniciados no servidor. O scanner procura modelos em resources ativos, arquivos `.ymt`, manifests e `data_files/metapeds.ymt`.
+
+Se algum pack estiver em uma pasta com nome diferente, adicione o nome em `shared/config.lua`:
+
+```lua
+Config.PedResourcePathHints = {
+    '[peds]',
+    'custompeds',
+    'personagens',
+    'characters',
+    'minha_pasta_de_peds',
+}
+```
+
+Se algum modelo ainda nao aparecer, force manualmente:
+
+```lua
+Config.ServerPeds = {
+    'cs_nome_do_ped',
+}
+```
+
+Depois de adicionar ou iniciar novos peds, use no console:
+
+```text
+spooner_rescan_peds
+```
+
+## Instalacao
+
+1. Baixe o resource.
+2. Coloque a pasta `spooni_spooner` dentro da sua pasta `resources`.
+3. Garanta que a dependencia `uiprompt` esteja instalada.
+4. Adicione no seu `server.cfg`:
+
+```cfg
+ensure spooni_spooner
+```
+
+5. Adicione tambem as permissoes:
+
+```cfg
+exec @spooni_spooner/permissions.cfg
+```
+
+Ou configure manualmente:
+
+```cfg
+add_ace group.admin spooner.view allow
+add_ace group.admin spooner.spawn allow
+add_ace group.admin spooner.modify.own allow
+add_ace group.admin spooner.delete.own allow
+add_ace group.admin spooner.properties allow
+
+add_ace group.admin spooner.noEntityLimit allow
+add_ace group.admin spooner.modify.other allow
+add_ace group.admin spooner.delete.other allow
+```
+
+6. Reinicie o servidor.
+
+## Comandos
+
+| Comando | Funcao |
+| --- | --- |
+| `/spooner` | Abre ou fecha o spooner |
+| `/spooner_db` | Abre o menu de database |
+| `/spooner_savedb` | Abre o menu de salvar/carregar database |
+| `spooner_refresh_perms` | Recarrega permissoes dos players |
+| `spooner_rescan_peds` | Reescaneia peds/metapeds do servidor |
+
+## Controles principais
+
+| Controle | Funcao |
+| --- | --- |
+| W/A/S/D | Mover |
+| Space/Shift | Subir/descer |
+| E | Spawnar |
+| Clique esquerdo | Selecionar/anexar/desanexar entidade |
+| Clique direito | Deletar entidade selecionada |
+| C/V | Rotacionar |
+| B | Trocar eixo de rotacao |
+| Q/Z/Setas | Ajustar posicao |
+| F | Abrir menu de spawn |
+| X | Abrir database |
+| Tab | Abrir propriedades |
+| J | Abrir salvar/carregar database |
+| Delete | Sair do spooner |
 
 ## Menus
 
-### Spawn menu - F
+### Spawn
 
-The **Spawn** menu provides searchable lists to select an entity to spawn. Left-clicking on an entity sets it as your current spawn.
+O menu de spawn possui listas pesquisaveis para peds, veiculos, objetos, propsets, pickups e outros tipos suportados.
 
-If an entity is not included in the list, you can still spawn it by entering the full model name in the search field and clicking **Spawn By Name**.
+Se um modelo nao estiver na lista, ainda e possivel digitar o nome completo no campo de busca e usar `Criar por Nome`, desde que o player tenha permissao para spawn por nome.
 
-Right-clicking an entity in any of the spawn menus will add that entity as a favourite. Clickin the favourites button will toggle displaying only your favourited entities.
+### Database
 
-### Database menu - X
+O menu de database armazena as entidades criadas. Entidades spawnadas entram automaticamente no database atual.
 
-The **Database** menu stores a list of entities. When an entity is spawned, it is automatically added to the current database. Existing entities can be added/removed from the database via the **Properties** menu.
+- Clique esquerdo abre a entidade no menu de propriedades.
+- Clique direito deleta a entidade.
+- `Delete All` remove todas as entidades do database.
 
-- Left-click on an entity to open it in the **Properties** menu
-- Right-click on an entity to delete it
-- Click **Delete All** to delete all entities in the database
+### Propriedades
 
-### Properties menu - Tab
+O menu de propriedades permite editar posicao, rotacao, congelamento, visibilidade, colisao, vida, invencibilidade, anexos e opcoes especificas de ped/veiculo.
 
-The **Properties** menu lists and allows you to edit properties of an entity.
+### Salvar e carregar
 
-### Save/Load Database menu - J
+O menu de salvar/carregar permite guardar databases por nome e carregar depois.
 
-The **Save/Load Database** menu allows you to store your current database with a name, and then load all the entities from it again later.
+- Para salvar, digite um nome e clique em `Save`.
+- Para carregar, clique no nome salvo.
+- Para deletar, clique com o botao direito no nome salvo.
+- Para importar/exportar, use `Import/Export`.
 
-- To save your current database, enter name in the field and click **Save**.
-- To load a saved database, left-click on the name of the database.
-- To delete a saved database, right-click on the name of the database.
-- To import a database or export the current database, click **Import/Export**.
+## Importacao e exportacao
 
-Checking the **Load relative to cursor position** box will spawn the entities in the selected database relative to the current cursor position, rather than exactly where they were originally placed.
+Formatos suportados:
 
-Checking the **Replace current DB** box will replace your current database with the loaded database, rather than merging the two.
+| Formato | Exporta | Importa |
+| --- | --- | --- |
+| YMAP | Sim | Sim |
+| Map Editor XML | Sim | Sim |
+| Spooner DB JSON | Sim | Sim |
+| Spooner Backup | Sim | Sim |
+| Prop Loader | Sim | Sim |
+| propplacer JSON | Sim | Nao |
 
-Checking the **Save/Load deletions** box will save what entities you delete, and delete them again when the database is loaded.
+## Creditos
 
-### Import/Export menu
+Este resource e baseado no projeto original:
 
-The **Import/Export** menu allows you to import and export databases in a number of different formats:
+- `kibook/spooner`
 
-| Format          | Description | Export? | Import? |
-|-----------------|-------------|---------|---------|
-| YMAP            | Native map format used by RDR2 | Yes | Yes |
-| Prop Loader     | Format used by the [spooni_prop_loader](https://spooni-mapping.tebex.io/package/6284606) resource | Yes | Yes |
-| Map Editor XML  | XML format used by the [Lambdarevolution map editor](https://allmods.net/red-dead-redemption-2/tools-red-dead-redemption-2/rdr2-map-editor-v0-10/) and the [objectloader](https://github.com/kibook/redm-objectloader) resource | Yes | Yes |
-| Spooner DB JSON | The native format used by the spooner | Yes | Yes |
-| Spooner Backup  | Backup of all spooner databases | Yes | Yes |
-| propplacer JSON | [RedEM:RP propplacer](https://github.com/RedEM-RP/redemrp_propplacer) JSON database | Yes | No |
+Todos os creditos da base original pertencem ao autor original.
 
-To export, select the desired format and click **Export**. The output will be displayed in the text box, and you can copy it to save it to an external file.
+A The Wanted Sole Studio realizou apenas modificacoes, ajustes, organizacao e adicao de funcoes nesta versao.
 
-To import, paste the input into the text box, select the appropriate format, and click **Import**. Objects imported will be added to your current database.
+## Suporte
 
-Entering a URL of a JSON/XML file in the **Import from URL** field and clicking **Import** allows you to import from external web sources, such as pastebin.com, without needing to copy and paste. Be sure that the URL points to the raw version of the file when using such services.
-
-## 3. Credits
-
-Big thanks go to [kibook](https://github.com/kibook) the creator of the main script, since the script is already 2 years old (as of 2024) we wanted to give it a little overhaul.
-
-Click here for the [original script](https://github.com/kibook/spooner)
+Resource gratuito da The Wanted Sole Studio.
