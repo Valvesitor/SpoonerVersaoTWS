@@ -4,27 +4,55 @@ Esta e uma versao modificada do Spooner para RedM, distribuida como free resourc
 
 A base original do projeto pertence ao `kibook/spooner`. A The Wanted Sole Studio fez ajustes, melhorias internas e adicionou funcoes para facilitar o uso dentro do servidor.
 
+## ⚠️ Importante
+
+Ao baixar pelo GitHub, a pasta pode vir com outro nome, por exemplo:
+
+```txt
+SpoonerVersaoTWS-main
+```
+
+Antes de colocar no servidor, renomeie a pasta para:
+
+```txt
+spooni_spooner
+```
+
+O resource precisa manter exatamente esse nome para funcionar corretamente.
+
+Exemplo correto:
+
+```txt
+resources/[scripts]/spooni_spooner
+```
+
+No `server.cfg`, use:
+
+```cfg
+ensure spooni_spooner
+```
+
 ## Informacoes
 
-| Campo | Valor |
-| --- | --- |
-| Nome | Spooner Versao TWS |
-| Categoria | Free Resource |
-| Base original | kibook/spooner |
+| Campo          | Valor                  |
+| -------------- | ---------------------- |
+| Nome           | Spooner Versao TWS     |
+| Categoria      | Free Resource          |
+| Base original  | kibook/spooner         |
 | Modificado por | The Wanted Sole Studio |
-| Plataforma | RedM |
-| Status | Gratuito |
+| Plataforma     | RedM                   |
+| Status         | Gratuito               |
 
 ## O que foi alterado
 
-- Script ajustado para uso em servidores RedM.
-- Interface ajustada para o padrao visual TWS.
-- Nova funcao para localizar peds/metapeds carregados no servidor.
-- Suporte a peds em formatos comuns de resource, como `stream`, `data_files`, `data` e `metapeds`.
-- Suporte a pastas customizadas via `Config.PedResourcePathHints`.
-- Suporte a lista manual de peds via `Config.ServerPeds`.
-- Ajustes internos para facilitar uso, busca e organizacao.
-- Resource preparado para distribuicao como free resource.
+* Script ajustado para uso em servidores RedM.
+* Interface ajustada para o padrao visual TWS.
+* Nova funcao para localizar peds/metapeds carregados no servidor.
+* Suporte a peds em formatos comuns de resource, como `stream`, `data_files`, `data` e `metapeds`.
+* Suporte a pastas customizadas via `Config.PedResourcePathHints`.
+* Suporte a lista manual de peds via `Config.ServerPeds`.
+* Ajustes internos para facilitar uso, busca e organizacao.
+* Resource preparado para distribuicao como free resource.
 
 ## Peds do servidor
 
@@ -59,15 +87,16 @@ spooner_rescan_peds
 ## Instalacao
 
 1. Baixe o resource.
-2. Coloque a pasta `spooni_spooner` dentro da sua pasta `resources`.
-3. Garanta que a dependencia `uiprompt` esteja instalada.
-4. Adicione no seu `server.cfg`:
+2. Renomeie a pasta baixada para `spooni_spooner`.
+3. Coloque a pasta `spooni_spooner` dentro da sua pasta `resources`.
+4. Garanta que a dependencia `uiprompt` esteja instalada.
+5. Adicione no seu `server.cfg`:
 
 ```cfg
 ensure spooni_spooner
 ```
 
-5. Adicione tambem as permissoes:
+6. Adicione tambem as permissoes:
 
 ```cfg
 exec @spooni_spooner/permissions.cfg
@@ -87,35 +116,35 @@ add_ace group.admin spooner.modify.other allow
 add_ace group.admin spooner.delete.other allow
 ```
 
-6. Reinicie o servidor.
+7. Reinicie o servidor.
 
 ## Comandos
 
-| Comando | Funcao |
-| --- | --- |
-| `/spooner` | Abre ou fecha o spooner |
-| `/spooner_db` | Abre o menu de database |
-| `/spooner_savedb` | Abre o menu de salvar/carregar database |
-| `spooner_refresh_perms` | Recarrega permissoes dos players |
-| `spooner_rescan_peds` | Reescaneia peds/metapeds do servidor |
+| Comando                 | Funcao                                  |
+| ----------------------- | --------------------------------------- |
+| `/spooner`              | Abre ou fecha o spooner                 |
+| `/spooner_db`           | Abre o menu de database                 |
+| `/spooner_savedb`       | Abre o menu de salvar/carregar database |
+| `spooner_refresh_perms` | Recarrega permissoes dos players        |
+| `spooner_rescan_peds`   | Reescaneia peds/metapeds do servidor    |
 
 ## Controles principais
 
-| Controle | Funcao |
-| --- | --- |
-| W/A/S/D | Mover |
-| Space/Shift | Subir/descer |
-| E | Spawnar |
+| Controle        | Funcao                               |
+| --------------- | ------------------------------------ |
+| W/A/S/D         | Mover                                |
+| Space/Shift     | Subir/descer                         |
+| E               | Spawnar                              |
 | Clique esquerdo | Selecionar/anexar/desanexar entidade |
-| Clique direito | Deletar entidade selecionada |
-| C/V | Rotacionar |
-| B | Trocar eixo de rotacao |
-| Q/Z/Setas | Ajustar posicao |
-| F | Abrir menu de spawn |
-| X | Abrir database |
-| Tab | Abrir propriedades |
-| J | Abrir salvar/carregar database |
-| Delete | Sair do spooner |
+| Clique direito  | Deletar entidade selecionada         |
+| C/V             | Rotacionar                           |
+| B               | Trocar eixo de rotacao               |
+| Q/Z/Setas       | Ajustar posicao                      |
+| F               | Abrir menu de spawn                  |
+| X               | Abrir database                       |
+| Tab             | Abrir propriedades                   |
+| J               | Abrir salvar/carregar database       |
+| Delete          | Sair do spooner                      |
 
 ## Menus
 
@@ -129,9 +158,9 @@ Se um modelo nao estiver na lista, ainda e possivel digitar o nome completo no c
 
 O menu de database armazena as entidades criadas. Entidades spawnadas entram automaticamente no database atual.
 
-- Clique esquerdo abre a entidade no menu de propriedades.
-- Clique direito deleta a entidade.
-- `Delete All` remove todas as entidades do database.
+* Clique esquerdo abre a entidade no menu de propriedades.
+* Clique direito deleta a entidade.
+* `Delete All` remove todas as entidades do database.
 
 ### Propriedades
 
@@ -141,29 +170,29 @@ O menu de propriedades permite editar posicao, rotacao, congelamento, visibilida
 
 O menu de salvar/carregar permite guardar databases por nome e carregar depois.
 
-- Para salvar, digite um nome e clique em `Save`.
-- Para carregar, clique no nome salvo.
-- Para deletar, clique com o botao direito no nome salvo.
-- Para importar/exportar, use `Import/Export`.
+* Para salvar, digite um nome e clique em `Save`.
+* Para carregar, clique no nome salvo.
+* Para deletar, clique com o botao direito no nome salvo.
+* Para importar/exportar, use `Import/Export`.
 
 ## Importacao e exportacao
 
 Formatos suportados:
 
-| Formato | Exporta | Importa |
-| --- | --- | --- |
-| YMAP | Sim | Sim |
-| Map Editor XML | Sim | Sim |
-| Spooner DB JSON | Sim | Sim |
-| Spooner Backup | Sim | Sim |
-| Prop Loader | Sim | Sim |
-| propplacer JSON | Sim | Nao |
+| Formato         | Exporta | Importa |
+| --------------- | ------- | ------- |
+| YMAP            | Sim     | Sim     |
+| Map Editor XML  | Sim     | Sim     |
+| Spooner DB JSON | Sim     | Sim     |
+| Spooner Backup  | Sim     | Sim     |
+| Prop Loader     | Sim     | Sim     |
+| propplacer JSON | Sim     | Nao     |
 
 ## Creditos
 
 Este resource e baseado no projeto original:
 
-- `kibook/spooner`
+* `kibook/spooner`
 
 Todos os creditos da base original pertencem ao autor original.
 
@@ -171,4 +200,6 @@ A The Wanted Sole Studio realizou apenas modificacoes, ajustes, organizacao e ad
 
 ## Suporte
 
-Resource gratuito da The Wanted Sole Studio.
+Este e um resource gratuito da The Wanted Sole Studio.
+
+Para suporte tecnico referente a scripts da TWS, abra um ticket no Discord oficial da The Wanted Sole Studio.
